@@ -1,0 +1,14 @@
+.book-details {
+    // display: grid;
+    grid-template: "image content shop" / min-content auto 40ch;
+
+    .book-details-image {
+        grid-area: image;
+    }
+    .book-details-content {
+        grid-area: content;
+    }
+    .book-details-shop {
+        grid-area: shop;
+    }
+}

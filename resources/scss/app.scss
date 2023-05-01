@@ -1,0 +1,34 @@
+@import "root", "utility", "layout/header", "layout/main", "layout/footer", "input/button", "input/number",
+    "details/book";
+
+.nav-container,
+.header-container,
+.main-container,
+.footer-container,
+.bag-container {
+    max-width: 100%;
+    @media (min-width: 576px) {
+        max-width: 540px;
+    }
+    @media (min-width: 768px) {
+        max-width: 735px;
+    }
+    @media (min-width: 940px) {
+        max-width: 960px;
+    }
+    @media (min-width: 1200px) {
+        max-width: 1130px;
+    }
+}
+
+body {
+    min-height: 100vh;
+    max-width: 100vw;
+
+    @media (prefers-color-scheme: _dark) {
+        --bs-body-bg: #1b1b1b;
+        --bs-body-color: white;
+        --bs-border-color: #5e5e5e;
+        // background-color: #0f0f0f;
+    }
+}

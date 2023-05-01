@@ -1,0 +1,58 @@
+:root {
+    --bs-primary: #f2ce1b;
+    --bs-primary-rgb: 242, 206, 28;
+    --bs-primary-dark-1: color-mix(in srgb, var(--bs-primary), black 20%);
+    --bs-primary-dark-2: color-mix(in srgb, var(--bs-primary), black 40%);
+    --bs-primary-dark-3: color-mix(in srgb, var(--bs-primary), black 80%);
+
+    --bs-primary-variant: #fb7e0d;
+    --bs-primary-variant-dark-1: color-mix(in srgb, var(--bs-primary), black 20%);
+    --bs-primary-variant-dark-2: color-mix(in srgb, var(--bs-primary), black 40%);
+    --bs-primary-variant-dark-3: color-mix(in srgb, var(--bs-primary), black 80%);
+
+    --bs-secondary: #4881fa;
+    --bs-secondary-rgb: 72, 129, 250;
+    --bs-secondary-dark-1: color-mix(in srgb, var(--bs-secondary), black 20%);
+    --bs-secondary-dark-2: color-mix(in srgb, var(--bs-secondary), black 40%);
+    --bs-secondary-dark-3: color-mix(in srgb, var(--bs-secondary), black 80%);
+
+    --bs-secondary-variant: #12477c;
+    --bs-secondary-variant-dark-1: color-mix(in srgb, var(--bs-secondary), black 20%);
+    --bs-secondary-variant-dark-2: color-mix(in srgb, var(--bs-secondary), black 40%);
+    --bs-secondary-variant-dark-3: color-mix(in srgb, var(--bs-secondary), black 80%);
+
+    --bs-accent: #4cd34f;
+    --bs-accent-rgb: 76, 211, 79;
+    --bs-accent-dark-1: color-mix(in srgb, var(--bs-accent), black 20%);
+    --bs-accent-dark-2: color-mix(in srgb, var(--bs-accent), black 40%);
+    --bs-accent-dark-3: color-mix(in srgb, var(--bs-accent), black 80%);
+
+    --bs-accent-variant: #0d8828;
+    --bs-accent-variant-dark-1: color-mix(in srgb, var(--bs-accent), black 20%);
+    --bs-accent-variant-dark-2: color-mix(in srgb, var(--bs-accent), black 40%);
+    --bs-accent-variant-dark-3: color-mix(in srgb, var(--bs-accent), black 80%);
+
+    --bs-error: #e54d71;
+    --bs-error-rgb: 229, 77, 113;
+    --bs-error-dark-1: color-mix(in srgb, var(--bs-error), black 20%);
+    --bs-error-dark-2: color-mix(in srgb, var(--bs-error), black 40%);
+    --bs-error-dark-3: color-mix(in srgb, var(--bs-error), black 80%);
+
+    --bs-error-variant: #e31344;
+    --bs-error-variant-dark-1: color-mix(in srgb, var(--bs-error), black 20%);
+    --bs-error-variant-dark-2: color-mix(in srgb, var(--bs-error), black 40%);
+    --bs-error-variant-dark-3: color-mix(in srgb, var(--bs-error), black 80%);
+
+    --bs-dead: #adadad;
+    --bs-dead-rgb: 229, 77, 113;
+    --bs-dead-dark-1: color-mix(in srgb, var(--bs-dead), black 20%);
+    --bs-dead-dark-2: color-mix(in srgb, var(--bs-dead), black 40%);
+    --bs-dead-dark-3: color-mix(in srgb, var(--bs-dead), black 80%);
+
+    --bs-dead-variant: #5b6570;
+    --bs-dead-variant-dark-1: color-mix(in srgb, var(--bs-dead), black 20%);
+    --bs-dead-variant-dark-2: color-mix(in srgb, var(--bs-dead), black 40%);
+    --bs-dead-variant-dark-3: color-mix(in srgb, var(--bs-dead), black 80%);
+
+    --view-more-height: 90vh;
+}

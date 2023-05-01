@@ -1,0 +1,13 @@
+.footer {
+    /* height: calc(var(--view-more-height)/5); */
+    text-align: center;
+    color: black !important;
+    /* background-image: linear-gradient(0deg, var(--bs-primary), #030b2a); */
+    background-color: var(--bs-primary);
+    padding: 2em;
+    
+    .my-ref {
+        text-decoration: none;
+        color: black;
+    }
+}

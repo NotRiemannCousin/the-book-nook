@@ -1,0 +1,32 @@
+.bg-accent {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-accent-rgb), var(--bs-bg-opacity)) !important;
+}
+.btn-primary {
+    --bs-btn-bg: var(--bs-secondary);
+    &:hover {
+        --bs-btn-bg: var(--bs-secondary-dark-1);
+    }
+}
+.btn-error {
+    --bs-btn-bg: var(--bs-error);
+    color: white;
+    &:hover {
+        color: white;
+        background-color: var(--bs-error-dark-1);
+    }
+}
+.btn-error-variant {
+    --bs-btn-bg: var(--bs-error-variant);
+    color: white;
+    &:hover {
+        color: white;
+        background-color: var(--bs-error-variant-dark-1);
+    }
+}
+
+.btn-dead {
+    cursor: default;
+    background-color: var(--bs-dead);
+    color: var(--bs-dead-dark-3) !important;
+}
