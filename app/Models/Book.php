@@ -62,10 +62,7 @@ class Book extends Model
         'rating_4' => 'integer',
         'rating_5' => 'integer'
     ];
-    protected $attributes = [
-        'isbn'
-    ];
-
+    
     public function sale(): HasOne
     {
         return $this->hasOne(Sale::class);

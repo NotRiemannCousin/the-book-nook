@@ -21,7 +21,6 @@ class SaleFactory extends Factory
         $book = Book::inRandomOrder()->first();
 
         return [
-            // 'book_id' => $this->book_id,
             'book_id' => $book->id,
             'percentage' => .10,
             'until' => strtotime('+1 week')

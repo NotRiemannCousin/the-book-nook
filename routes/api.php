@@ -30,9 +30,17 @@ Route::get('/', function () {
 
 
 
-Route::apiResources([
-    '/books' => APIBookController::class,
-    '/authors' => APIAuthorController::class,
-    '/publishers' => APIPublisherController::class,
-    '/genres' => APIGenreController::class
-]);
+Route::apiResources(
+    [
+        '/books' => APIBookController::class,
+        '/authors' => APIAuthorController::class,
+        '/publishers' => APIPublisherController::class,
+        '/genres' => APIGenreController::class
+    ],
+    [
+        'only' => [
+            'index',
+            'show'
+        ]
+    ]
+);

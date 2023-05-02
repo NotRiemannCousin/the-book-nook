@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('length')->nullable();
             $table->unsignedInteger('pages')->nullable();
 
-            $table->string('isbn');
+            $table->bigInteger('isbn')->nullable();
             $table->unsignedInteger('year')->nullable();
 
             $table->foreignId('genre_id')->constrained();

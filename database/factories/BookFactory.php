@@ -110,7 +110,7 @@ class BookFactory extends Factory
         $genre = Genre::inRandomOrder()->first();
         $author = Author::inRandomOrder()->first();
         $publisher = Publisher::inRandomOrder()->first();
-
+        
         return [
             'title' => $fake->unique()->randomElement(self::$names),
             'subtitle' => $fake->sentence(5),
@@ -120,14 +120,14 @@ class BookFactory extends Factory
             'price' => $fake->randomFloat(2, self::$min_price, self::$max_price),
             'sold' => $fake->numberBetween(0, $quantity),
             'quantity' => $quantity,
-
+            
             // 'image',
             'weight' => $fake->randomFloat(1, 0.1, 4).'kg',
             'width' => $fake->numberBetween(12, 18).'cm',
             'height' => $fake->numberBetween(18, 25).'cm',
             'length' => $fake->randomFloat(1, 0.3, 4).'cm',
             'pages' => $fake->numberBetween(self::$min_pages, self::$max_pages),
-
+            
             'isbn' => $fake->randomNumber(9),
             'year' => $fake->numberBetween($author->birth_year, ($author->birth_year ? $author->birth_year : date('Y'))),
 
