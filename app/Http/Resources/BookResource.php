@@ -24,7 +24,7 @@ class BookResource extends JsonResource
             'price' => $this->calcPrice(),
             'real_price' => $this->price,
             'sold' => $this->sold,
-            'quantity' => $this->quantity,
+            'quantity' => $this->calcQuantity(),
 
             'image' => $this->image,
             'weight' => $this->weight,

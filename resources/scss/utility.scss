@@ -139,6 +139,10 @@ $breakpoints: (
     display: block !important;
 }
 
+.show-bag{
+    cursor: pointer;
+}
+
 @keyframes fade-out-anim {
     0% {
         opacity: 0;

@@ -18,35 +18,36 @@
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
     </script>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 </head>
 
 <body class="d-flex min-vh-100 flex-column">
-    <div id="message-holder" class="fade-out position-fixed d-flex justify-content-center m-2 m-md-5 w-fill z-1"
+    <div id="message-holder" class="fade-out position-fixed d-flex justify-content-center m-2 m-md-5 w-fill z-3"
         style="bottom: 2em">
         <div id="message"
             class="d-none p-3 px-5 bg-white border border-black border-opacity-25 rounded-1 text-color text-center">
         </div>
     </div>
-    <div id="bag-holder" class="position-fixed d-flex p-2 p-md-5 justify-content-center z-1"
+    <div id="bag-holder" class="position-fixed d-flex p-2 p-md-5 justify-content-center z-2 d-none hide-bag"
         style="background-color: #0006; height: 100vh; width: 100vw;">
-        <div id="bag-container" class="bag-container p-2 p-md-5 h-100 w-100 rounded-3 bg-white"
+        <div id="bag-container" class="d-flex flex-column bag-container p-2 p-md-5 h-100 w-100 rounded-3 bg-white"
             style="max-height: 100%">
             <div class="d-flex justify-content-between">
                 <h2 class="px-4">Book Bag</h2>
-                <button class="btn btn-error-variant p-2 px-3 border-0 rounded-4" onclick="clearBag()">Clear</button>
+                <button class="btn btn-error-variant p-2 px-3 border-0 rounded-4 clear-bag">Clear</button>
             </div>
             <hr>
-            <div class="book-wrapper p-2 py-0 p-md-3 py-md-0">
+            <div id="bag-wrapper" class="d-grid book-wrapper overflow-y-auto p-2 py-0 p-md-3 py-md-0">
+
 
             </div>
         </div>
     </div>
     <nav
-        class="d-flex flex-column navbar navbar-expand-lg b-bottom-1 py-2 justify-content-center soft-shadow-bottom fw-medium sticky-top z-0">
+        class="d-flex flex-column navbar navbar-expand-lg b-bottom-1 py-2 justify-content-center soft-shadow-bottom fw-medium sticky-top z-1">
         {{-- <!-- <header class="nav modal-header px-4 py-1 bg-primary"> --> --}}
         <div
-            class="d-flex w-fill w-md-fit nav-container align-items-center justify-content-between justify-content-md-center">
+            class="d-md-flex w-fill w-md-fit nav-container align-items-center justify-content-between justify-content-md-center">
             <a href="/" class="mx-4 mxl-0 navbar-brand" title="home">
                 @include('layouts.logo')
             </a>
@@ -70,21 +71,22 @@
                     <input class="form-check-input" name="genre" type="checkbox" @checked($checked_genre ?? false)>
                 </div>
             </form>
+            <button class="navbar-toggler border mx-4 float-end" data-bs-toggle="collapse" data-bs-target="#navbar"
+                aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="px-1 mr-4 w-100 navbar-collapse collapse flex-grow-0" id="navbar">
-                <ul class="navbar-nav align-items-center justify-items-center text-center">
-                    {{-- <li class="px-4 nav-item">
-                        <a class="nav-link" href="{{route('categories')}}">Categories</a>
-                    </li> --}}
+                <ul class="navbar-nav align-items-center justify-items-center text-center">     
                     <li class="px-4 nav-item">
                         <a class="nav-link" href="{{ route('about') }}">About</a>
                     </li>
                     <li class="px-4 nav-item">
                         <a class="nav-link" href="{{ route('contact') }}">Contact</a>
                     </li>
-                    <li class="px-4 nav-item">
-                        <a class="nav-link" href="{{ route('my-bag') }}">Bag
+                    <li class="px-4 nav-item show-bag">
+                        <a class="nav-link">Bag
                             <span id="bag-count" class="d-inline-block d-none bg-danger text-white rounded-circle"
-                                style="height: 1.5em;width: 1.5em">11</span></a>
+                                style="height: 1.5em;width: 1.5em"></span></a>
                     </li>
                     <li class="px-4 nav-item">
                         @auth
@@ -102,10 +104,6 @@
                     </li>
                 </ul>
             </div>
-            <button class="navbar-toggler border mx-4" data-bs-toggle="collapse" data-bs-target="#navbar"
-                aria-expanded="false">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
         <form action="/search/" method="get"
             class="d-flex d-md-none px-4 h-100 w-fill flex-column align-items-center focus-container">
@@ -145,7 +143,7 @@
             </div>
             <div>
                 <h4>Account</h4>
-                <a class="d-block text-body text-decoration-none" href="{{ route('my-bag') }}">My Bag</a>
+                <span class="d-block text-body text-decoration-none show-bag">My Bag</span>
                 <a class="d-block text-body text-decoration-none" href="{{ route('login') }}">SignIn</a>
                 <a class="d-block text-body text-decoration-none" href="{{ route('register') }}">SignUp</a>
             </div>
