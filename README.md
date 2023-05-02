@@ -4,10 +4,10 @@
 # The Book Nook
 
 Project based on a virtual book store.
-___
+_________________
 ## Database
 ![Database Diagram](README/database.png "Diagram")
-___
+_________________
 ## API
 ![Routes](README/api.png "Routes")
 
