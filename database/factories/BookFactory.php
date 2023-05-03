@@ -136,11 +136,11 @@ class BookFactory extends Factory
             'publisher_id' => $publisher->id,
             // 'sale_id' => ($fake->randomDigit() == 9 ? Sale::newSale($this)->id: null),
 
-            'rating_1' => $fake->randomNumber(2),
+            'rating_1' => $fake->randomNumber(1),
             'rating_2' => $fake->randomNumber(2),
             'rating_3' => $fake->randomNumber(4),
             'rating_4' => $fake->randomNumber(4),
-            'rating_5' => $fake->randomNumber(3)
+            'rating_5' => $fake->randomNumber(4)
         ];
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.main', ['main_width' => '-webkit-fill-available'])
 @php
-
+    
     use App\Models\Book;
     use App\Models\Author;
     use App\Models\Publisher;
@@ -15,17 +15,18 @@
 @section('title', "Search: $search_input")
 @section('content')
     @php
-        $books = $checked_book ? Book::where('title', 'LIKE', '%' . $search_input . '%')->get() : [];
-        $genres = $checked_author ? Genre::where('name', 'LIKE', '%' . $search_input . '%')->get() : [];
-        $authors = $checked_genre ? Author::where('name', 'LIKE', '%' . $search_input . '%')->get() : [];
-        $publishers = $checked_publisher ? Publisher::where('name', 'LIKE', '%' . $search_input . '%')->get() : [];
+        $books = $checked_book ? Book::where('title', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        $genres = $checked_author ? Genre::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        $authors = $checked_genre ? Author::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        $publishers = $checked_publisher ? Publisher::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        
 
         $arrays = ['genres' => $genres, 'authors' => $authors, 'publishers' => $publishers];
     @endphp
 
     @if ($checked_book)
         <h2>Books</h2>
-        <section class="p-5 w-fill">
+        <section class="p-2 p-md-5 w-fill">
             @include('layouts.book.book-collection-expanded', [
                 'collection' => $books,
             ])
@@ -38,9 +39,10 @@
         @endunless
 
         <h2>{{ ucwords($name) }}</h2>
-        <section class="p-5 w-fill">
+        <section class="p-2 p-md-5 pt-md-2 w-fill">
             @forelse ($collection as $element)
-                <a class="text-decoration-none fw-normal" href="#">{{ $element->name }}</a><br>
+                <a class="text-decoration-none fw-normal"
+                    href="/details/{{ rtrim($name, 's') }}/{{ $element->id }}">{{ $element->name }}</a><br>
             @empty
                 @include('layouts.util.nothing')
             @endforelse

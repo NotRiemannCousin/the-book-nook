@@ -28,7 +28,7 @@
             class="d-none p-3 px-5 bg-white border border-black border-opacity-25 rounded-1 text-color text-center">
         </div>
     </div>
-    <div id="bag-holder" class="position-fixed d-flex p-2 p-md-5 justify-content-center z-2 d-none hide-bag"
+    <div id="bag-holder" class="position-fixed d-flex p-2 py-5 p-md-5 justify-content-center z-2 d-none hide-bag"
         style="background-color: #0006; height: 100vh; width: 100vw;">
         <div id="bag-container" class="d-flex flex-column bag-container p-2 p-md-5 h-100 w-100 rounded-3 bg-white"
             style="max-height: 100%">
@@ -47,7 +47,7 @@
         class="d-flex flex-column navbar navbar-expand-lg b-bottom-1 py-2 justify-content-center soft-shadow-bottom fw-medium sticky-top z-1">
         {{-- <!-- <header class="nav modal-header px-4 py-1 bg-primary"> --> --}}
         <div
-            class="d-md-flex w-fill w-md-fit nav-container align-items-center justify-content-between justify-content-md-center">
+            class="d-md-flex pb-2 p-md-0 w-fill w-md-fit nav-container align-items-center justify-content-between justify-content-md-center">
             <a href="/" class="mx-4 mxl-0 navbar-brand" title="home">
                 @include('layouts.logo')
             </a>
