@@ -10,6 +10,7 @@ class Author extends Model
 {
     use HasFactory;
 
+    #region attributes
     /**
      * The attributes that are mass assignable.
      *
@@ -29,13 +30,16 @@ class Author extends Model
         'birth_year' => 'integer',
         'death_year' => 'integer'
     ];
+    #endregion
 
-
+    #region  relations
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);
     }
+    #endregion
 
+    #region methods
     public function mainGenres()
     {
         return Genre::selectRaw('sum(books.sold) as count, genres.*')
@@ -54,4 +58,17 @@ class Author extends Model
             ->orderByRaw('sum(books.sold) DESC')
             ->get();
     }
+    #endregion
+
+
+
+    #region scopes
+    public function scopeFilteredByName($query, $search_input)
+    {
+        if ($search_input) {
+            return $query->whereLike('name', $search_input);
+        }
+        return $query;
+    }
+    #endregion
 }

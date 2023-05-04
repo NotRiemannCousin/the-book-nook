@@ -11,6 +11,7 @@ class Book extends Model
 {
     use HasFactory;
 
+    #region attributes
     /**
      * The attributes that are mass assignable.
      *
@@ -62,7 +63,9 @@ class Book extends Model
         'rating_4' => 'integer',
         'rating_5' => 'integer'
     ];
-    
+    #endregion
+
+    #region relations
     public function sale(): HasOne
     {
         return $this->hasOne(Sale::class);
@@ -79,9 +82,9 @@ class Book extends Model
     {
         return $this->belongsTo(Publisher::class);
     }
+    #endregion
 
-
-
+    #region  methods
     public function getRating()
     {
         return ($this->rating_5 * 5 + $this->rating_4 * 4 + $this->rating_3 * 3 + $this->rating_2 * 2 + $this->rating_1) / $this->getTotalEvals();
@@ -107,33 +110,42 @@ class Book extends Model
     }
     public function onSale()
     {
-        return (bool)$this->sale;
+        return (bool) $this->sale;
     }
     public function calcQuantity()
     {
         return max(0, $this->quantity - $this->sold);
     }
-
-
-
-    public static function random($limit = 5)
+    public function calcDiscount()
     {
-        return self::select()->inRandomOrder()->take($limit)->get();
+        return $this->onSale() ? $this->sale->percentage * 100 : 0;
     }
-    public static function getTop10()
+    #endregion
+
+
+
+    #region scopes
+    public function scopeFilteredByTitle($query, $search_input)
+    {
+        if ($search_input) {
+            return $query->whereLike('title', $search_input);
+        }
+        return $query;
+    }
+    public function scopeGetTop10($query)
     {
         static $rating = '(rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1)/' .
-            '(rating_5 + rating_4 + rating_3 + rating_2 + rating_1)';
+        '(rating_5 + rating_4 + rating_3 + rating_2 + rating_1)';
 
-        // return self::selectRaw("*, $rating AS rating")->orderByDesc('rating')->take(10)->get();
-        return self::selectRaw("*, $rating AS rating")->orderByDesc('rating')->take(10)->get();
+        return $query->selectRaw("*, $rating AS rating")->orderByDesc('rating');
     }
-    public static function getMostRecents()
+    public function scopeGetMostRecents($query)
     {
-        return self::select()->orderByDesc('created_at')->take(10)->get();
+        return $query->orderByDesc('created_at')->take(10)->get();
     }
-    public static function getBestSellers()
+    public function scopeGetBestSellers($query)
     {
-        return self::select()->orderByDesc('sold')->take(10)->get();
+        return $query->orderByDesc('sold')->take(10)->get();
     }
+#endregion
 }

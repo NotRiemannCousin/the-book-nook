@@ -69,7 +69,7 @@
                         <h3 class="mt-2 fw-bold">U${{ $book->calcPrice() }}</h3>
 
                         <span class="py-1 px-2 m-1 bg-secondary fw-bold text-white rounded-2">
-                            {{ $book->sale->percentage * 100 }}%
+                            {{ $book->calcDiscont() }}%
                         </span>
                     @else
                         <h3 class="mt-2 fw-bold">U${{ $book->calcPrice() }}</h3>

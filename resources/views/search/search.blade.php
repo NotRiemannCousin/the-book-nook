@@ -1,26 +1,16 @@
 @extends('layouts.main', ['main_width' => '-webkit-fill-available'])
 @php
     
-    use App\Models\Book;
-    use App\Models\Author;
-    use App\Models\Publisher;
-    use App\Models\Genre;
-    // use App\Models\{
-    //     Book,
-    // Genre,
-    // Author,
-    // Publisher
-    // };
+    use App\Models\{Book, Genre, Author, Publisher};
 @endphp
 @section('title', "Search: $search_input")
 @section('content')
     @php
-        $books = $checked_book ? Book::where('title', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        $books = Book::scopeFilteredByTitle($search_input)->paginate(30);
         $genres = $checked_author ? Genre::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
         $authors = $checked_genre ? Author::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
         $publishers = $checked_publisher ? Publisher::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
         
-
         $arrays = ['genres' => $genres, 'authors' => $authors, 'publishers' => $publishers];
     @endphp
 

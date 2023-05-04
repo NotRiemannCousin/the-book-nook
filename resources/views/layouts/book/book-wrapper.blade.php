@@ -27,7 +27,7 @@
     </h6>
     @if ($book->onSale())
         <span class="py-1 px-2 m-1 bg-secondary fw-bold text-white rounded-2">
-            {{ $book->sale->percentage * 100 }}%
+            {{ $book->calcDiscont() }}%
         </span>
     @endif
 </div>

@@ -10,6 +10,8 @@ class Publisher extends Model
 {
     use HasFactory;
 
+    #region attributes
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,12 +20,16 @@ class Publisher extends Model
     protected $fillable = [
         'name',
     ];
+    #endregion
 
-
+    #region relations
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);
     }
+    #endregion
+
+    #region methods
     public function mainAuthors()
     {
         return Author::selectRaw('sum(books.sold) as count, authors.*')
@@ -42,8 +48,21 @@ class Publisher extends Model
             ->orderByRaw('sum(books.sold) DESC')
             ->get();
     }
-    public  function getBestSellers()
+    #endregion
+
+
+
+    #region scopes
+    public function scopeGetBestSellers($query)
     {
-        return Book::where('publisher_id', '=', $this->id)->select()->orderByDesc('sold')->take(10)->get();
+        return $query->where('publisher_id', '=', $this->id)->orderByDesc('sold')->take(10)->get();
     }
+    public function scopeFilteredByName($query, $search_input)
+    {
+        if ($search_input) {
+            return $query->whereLike('name', $search_input);
+        }
+        return $query;
+    }
+#endregion
 }

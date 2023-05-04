@@ -11,6 +11,7 @@ class Genre extends Model
 {
     use HasFactory;
 
+    #region attributes
     /**
      * The attributes that are mass assignable.
      *
@@ -19,15 +20,16 @@ class Genre extends Model
     protected $fillable = [
         'name',
     ];
+    #endregion
 
+    #region relations
     public function books(): HasMany
     {
         return $this->hasMany(Book::class);
     }
-    public static function random($limit = 3)
-    {
-        return self::select()->inRandomOrder()->take($limit)->get();
-    }
+    #endregion
+
+    #region  methods
     public function mainAuthors()
     {
         return Author::selectRaw('sum(books.sold) as count, authors.*')
@@ -46,8 +48,26 @@ class Genre extends Model
             ->orderByRaw('sum(books.sold) DESC')
             ->get();
     }
-    public  function getBestSellers()
+    #endregion
+
+
+
+    #region scopes
+    public function scopeRandom($query)
     {
-        return Book::where('genre_id', '=', $this->id)->select()->orderByDesc('sold')->take(10)->get();
+        return $query->inRandomOrder();
     }
+    public function scopeGetBestSellers($query)
+    {
+        return $query->where('genre_id', '=', $this->id)->orderByDesc('sold')->take(10)->get();
+    }
+
+    public function scopeFilteredByName($query, $search_input)
+    {
+        if ($search_input) {
+            return $query->whereLike('name', $search_input);
+        }
+        return $query;
+    }
+#endregion
 }
