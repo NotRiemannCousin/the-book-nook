@@ -2,10 +2,10 @@
 @php
     use App\Models\{Book, Genre, Author, Publisher};
 
-    $main_authors = $publisher->mainAuthors();
+    $main_authors = $publisher->mainAuthors()->pick(3);
     $main_author = optional($main_authors[0]);
 
-    $main_genres = $publisher->mainGenres();
+    $main_genres = $publisher->mainGenres()->pick(3);
     $main_genre = optional($main_genres[0]);
 
 @endphp
@@ -43,7 +43,7 @@
                     </span>
                 </h6>
     </section>
-    @include('layouts.book.book-collection', ['name' => "$publisher->name Best Sellers", 'collection' => $publisher->getBestSellers()])
+    @include('layouts.book.book-collection', ['name' => "$publisher->name Best Sellers", 'collection' => $publisher->books()->BestSellers()->pick()])
     @if ($main_author)
         @include('layouts.book.book-collection', [
             'name' => 'Featured author: ' . $main_author->name,

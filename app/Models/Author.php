@@ -46,8 +46,7 @@ class Author extends Model
             ->join('books', 'books.genre_id', '=', 'genres.id')
             ->whereRaw('books.author_id = ?', $this->id)
             ->groupBy('books.genre_id')
-            ->orderByRaw('sum(books.sold) DESC')
-            ->get();
+            ->orderByRaw('sum(books.sold) DESC');
     }
     public function mainPublishers()
     {
@@ -56,13 +55,17 @@ class Author extends Model
             ->whereRaw('books.author_id = ?', $this->id)
             ->groupBy('books.publisher_id')
             ->orderByRaw('sum(books.sold) DESC')
-            ->get();
+        ;
     }
     #endregion
 
 
 
     #region scopes
+    // public function scopeBestSellers($query)
+    // {
+    //     return $query->where('id', '=', $this->id)->orderByDesc('sold');
+    // }
     public function scopeFilteredByName($query, $search_input)
     {
         if ($search_input) {
@@ -70,5 +73,5 @@ class Author extends Model
         }
         return $query;
     }
-    #endregion
+#endregion
 }

@@ -4,11 +4,11 @@
     use App\Models\Genre;
 
     $collections = [
-        'Best Rating' => Book::getTop10(),
-        'Best Sellers' => Book::getBestSellers(),
-        'Most Recents' => Book::getMostRecents(),
+        'Best Rating' => Book::Top10()->pick(10),
+        'Best Sellers' => Book::BestSellers()->pick(10),
+        'Most Recents' => Book::latest()->pick(10),
     ];
-    $carousel = Book::random();
+    $carousel = Book::inRandomOrder()->pick(5);
 @endphp
 @section('header')
     <div id="carousel-random" class="carousel slide mb-5 text-body" data-bs-ride="carousel">
@@ -62,7 +62,7 @@
     <div class="py-4 px-1 p-md-4 rounded-2 border sub-collection">
         <h1>Some Genres...</h1>
         <section class="p-2 p-md-5">
-            @foreach (Genre::random(3) as $genre)
+            @foreach (Genre::inRandomOrder()->pick(3) as $genre)
                 @include('layouts.book.book-collection', [
                     'name' => $genre->name,
                     'collection' => $genre->books,

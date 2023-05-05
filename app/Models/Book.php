@@ -132,20 +132,16 @@ class Book extends Model
         }
         return $query;
     }
-    public function scopeGetTop10($query)
+    public function scopeTop10($query)
     {
         static $rating = '(rating_5 * 5 + rating_4 * 4 + rating_3 * 3 + rating_2 * 2 + rating_1)/' .
         '(rating_5 + rating_4 + rating_3 + rating_2 + rating_1)';
 
         return $query->selectRaw("*, $rating AS rating")->orderByDesc('rating');
     }
-    public function scopeGetMostRecents($query)
+    public function scopeBestSellers($query)
     {
-        return $query->orderByDesc('created_at')->take(10)->get();
-    }
-    public function scopeGetBestSellers($query)
-    {
-        return $query->orderByDesc('sold')->take(10)->get();
+        return $query->orderByDesc('sold');
     }
 #endregion
 }

@@ -37,7 +37,7 @@ class Genre extends Model
             ->whereRaw('books.genre_id = ?', $this->id)
             ->groupBy('books.author_id')
             ->orderByRaw('sum(books.sold) DESC')
-            ->get();
+        ;
     }
     public function mainPublishers()
     {
@@ -46,22 +46,13 @@ class Genre extends Model
             ->whereRaw('books.genre_id = ?', $this->id)
             ->groupBy('books.publisher_id')
             ->orderByRaw('sum(books.sold) DESC')
-            ->get();
+        ;
     }
     #endregion
 
 
 
     #region scopes
-    public function scopeRandom($query)
-    {
-        return $query->inRandomOrder();
-    }
-    public function scopeGetBestSellers($query)
-    {
-        return $query->where('genre_id', '=', $this->id)->orderByDesc('sold')->take(10)->get();
-    }
-
     public function scopeFilteredByName($query, $search_input)
     {
         if ($search_input) {

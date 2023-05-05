@@ -2,11 +2,11 @@
 @php
     use App\Models\{Book, Genre, Author, Publisher};
 
-    $main_authors = $genre->mainAuthors();
-    $main_author = optional($main_authors[0]);
-
-    $main_publishers = $genre->mainPublishers();
+    $main_publishers = $genre->mainPublishers()->pick(3);
     $main_publisher = optional($main_publishers[0]);
+
+    $main_authors = $genre->mainAuthors()->pick(3);
+    $main_author = optional($main_authors[0]);
 
 @endphp
 @section('content')

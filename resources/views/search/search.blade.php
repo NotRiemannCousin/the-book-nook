@@ -6,12 +6,25 @@
 @section('title', "Search: $search_input")
 @section('content')
     @php
-        $books = Book::scopeFilteredByTitle($search_input)->paginate(30);
-        $genres = $checked_author ? Genre::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
-        $authors = $checked_genre ? Author::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
-        $publishers = $checked_publisher ? Publisher::where('name', 'LIKE', '%' . $search_input . '%')->paginate(30) : [];
+        $books = [];
+        $genres = [];
+        $authors = [];
+        $publishers = [];
         
-        $arrays = ['genres' => $genres, 'authors' => $authors, 'publishers' => $publishers];
+        if ($checked_book) {
+            $books = Book::FilteredByTitle($search_input)->paginate(30);
+        }
+        if ($checked_author) {
+            $genres = Genre::FilteredByName($search_input)->paginate(30);
+        }
+        if ($checked_genre) {
+            $authors = Author::FilteredByName($search_input)->paginate(30);
+        }
+        if ($checked_publisher) {
+            $publishers = Publisher::FilteredByName($search_input)->paginate(30);
+        }
+        
+        $arrays = ['genre' => $genres, 'author' => $authors, 'publisher' => $publishers];
     @endphp
 
     @if ($checked_book)
@@ -24,15 +37,15 @@
     @endif
 
     @foreach ($arrays as $name => $collection)
-        @unless ($$name)
+        @unless (!$collection)
             @continue
         @endunless
 
-        <h2>{{ ucwords($name) }}</h2>
+        <h2>{{ str_plural(ucwords($name)) }}</h2>
         <section class="p-2 p-md-5 pt-md-2 w-fill">
             @forelse ($collection as $element)
                 <a class="text-decoration-none fw-normal"
-                    href="/details/{{ rtrim($name, 's') }}/{{ $element->id }}">{{ $element->name }}</a><br>
+                    href="/details/{{ $name }}/{{ $element->id }}">{{ $element->name }}</a><br>
             @empty
                 @include('layouts.util.nothing')
             @endforelse
