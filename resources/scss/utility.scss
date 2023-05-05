@@ -69,16 +69,19 @@ $breakpoints: (
         max-height: var(--height);
     }
 
-    + .grid-expand-btn:not(data-no-expand):before {
+    .grid-expand-btn:not(data-no-expand):before,
+    + .grid-expand-btn:not(data-no-expand):before{
         transition: transform 0.5s;
-        display: block;
         text-align: center;
         font-size: 2em;
         content: "\f078";
         // background-color: #2577c9;
         font-family: "FontAwesome";
+        display: block;
         width: 100%;
     }
+
+    &[data-grid-expanded] .grid-expand-btn:before,
     &[data-grid-expanded] + .grid-expand-btn:before {
         transform: rotateX(180deg);
     }
@@ -139,7 +142,7 @@ $breakpoints: (
     display: block !important;
 }
 
-.show-bag{
+.show-bag {
     cursor: pointer;
 }
 

@@ -51,32 +51,13 @@
             <a href="/" class="mx-4 mxl-0 navbar-brand" title="home">
                 @include('layouts.logo')
             </a>
-            <form action="/search/" method="get"
-                class="h-100 d-none d-md-flex flex-column align-items-center focus-container">
-                <div class="d-flex mb-1 w-fill form-group">
-                    <input name="search" type="text" class="px-2 w-fill border-0"
-                        placeholder="Book, author, genre or publisher" value="{{ $search_input ?? '' }}">
-                    <button type="submit" class="border-0 rounded-0 btn btn-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-                <div class="d-flex form-group show-in-parent-focus">
-                    <label class="mx-2" for="book">Book: </label>
-                    <input class="form-check-input" name="book" type="checkbox" @checked($checked_book ?? true)>
-                    <label class="mx-2" for="author">Author: </label>
-                    <input class="form-check-input" name="author" type="checkbox" @checked($checked_author ?? false)>
-                    <label class="mx-2" for="publisher">Publisher: </label>
-                    <input class="form-check-input" name="publisher" type="checkbox" @checked($checked_publisher ?? false)>
-                    <label class="mx-2" for="genre">Genre: </label>
-                    <input class="form-check-input" name="genre" type="checkbox" @checked($checked_genre ?? false)>
-                </div>
-            </form>
+        @include('layouts.util.search', ['style' => 'hide-md'])
             <button class="navbar-toggler border mx-4 float-end" data-bs-toggle="collapse" data-bs-target="#navbar"
                 aria-expanded="false">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="px-1 mr-4 w-100 navbar-collapse collapse flex-grow-0" id="navbar">
-                <ul class="navbar-nav align-items-center justify-items-center text-center">     
+                <ul class="navbar-nav align-items-center justify-items-center text-center">
                     <li class="px-4 nav-item">
                         <a class="nav-link" href="{{ route('about') }}">About</a>
                     </li>
@@ -105,26 +86,7 @@
                 </ul>
             </div>
         </div>
-        <form action="/search/" method="get"
-            class="d-flex d-md-none px-4 h-100 w-fill flex-column align-items-center focus-container">
-            <div class="d-flex mb-1 w-fill form-group">
-                <input name="search" type="text" class="px-2 w-fill border-0"
-                    placeholder="Book, author, genre or publisher" value="{{ $search_input ?? '' }}">
-                <button type="submit" class="border-0 rounded-0 btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <div class="d-flex form-group show-in-parent-focus">
-                <label class="mx-2" for="book">Book: </label>
-                <input class="form-check-input" name="book" type="checkbox" @checked($checked_book ?? true)>
-                <label class="mx-2" for="author">Author: </label>
-                <input class="form-check-input" name="author" type="checkbox" @checked($checked_author ?? false)>
-                <label class="mx-2" for="publisher">Publisher: </label>
-                <input class="form-check-input" name="publisher" type="checkbox" @checked($checked_publisher ?? false)>
-                <label class="mx-2" for="genre">Genre: </label>
-                <input class="form-check-input" name="genre" type="checkbox" @checked($checked_genre ?? false)>
-            </div>
-        </form>
+        @include('layouts.util.search', ['style' => 'w-fill'])
     </nav>
     @yield('header')
     <main class="d-flex justify-content-center flex-fill py-5 px-3 py-sm-5">

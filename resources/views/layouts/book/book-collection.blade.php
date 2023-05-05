@@ -9,7 +9,7 @@
                 @each('layouts.book.book-wrapper', $collection, 'book')
             </div>
             @if (count($collection) > 5)
-                <span class='grid-expand-btn'></span>
+                <span class="grid-expand-btn"></span>
             @endif
         @else
             @include('layouts.util.nothing')

@@ -1,8 +1,13 @@
 const body = document.getElementsByTagName("body")[0];
-const gridExpand = document.getElementsByClassName('grid-expand');
+// const gridExpandBtn = ;
+var gridExpand = [];
+
+
 
 document.addEventListener("DOMContentLoaded", init, false);
 window.addEventListener("resize", reCalcGridExpand, false);
+
+
 
 function outerHeight(el) {
     var height = el.offsetHeight;
@@ -19,36 +24,48 @@ function init() {
 
 
 function startGridExpand() {
-    let btn = document.querySelectorAll('.grid-expand+.grid-expand-btn');
+    let btn = Array.from(document.querySelectorAll('.grid-expand-btn'));
 
-    for (let i = 0; i < gridExpand.length; i++) {
-        btn[i].addEventListener('click', () => {
-            gridExpandOn(gridExpand[i], btn[i]);
+
+    btn.forEach(el => {
+        let closest = el.closest('.grid-expand');
+        let previus = el.previousElementSibling;
+
+        if (closest)
+            gridExpand.push({ 'expanded': closest, 'button': el });
+        else if (previus.classList.contains('grid-expand'))
+            gridExpand.push({ 'expanded': previus, 'button': el });
+    });
+
+
+    gridExpand.forEach((el, index) => {
+        el['button'].addEventListener('click', () => {
+            gridExpandOn(index);
         }
         );
         setTimeout(() => {
-            gridExpand[i].style.setProperty('transition-duration', '0.5s');
-            // btn[i].style.setProperty('transition-duration', '0.5s');
+            el['expanded'].style.setProperty('transition-duration', '0.5s');
             reCalcGridExpand();
         }, 1);
     }
+    );
 }
 
 
 function reCalcGridExpand() {
-    for (let i = 0; i < gridExpand.length; i++) {
-        let el = gridExpand[i];
+    gridExpand.forEach(el => {
+        el['expanded'].style.setProperty('--height',
+            outerHeight(el['expanded'].firstElementChild) + 'px');
 
-        el.style.setProperty('--height',
-            outerHeight(el.firstElementChild) + 'px');
-        el.style.setProperty('--max-height',
-            el.scrollHeight + 'px');
-// console.log(el.style.getPropertyValue("--columns-expand"));
-        if (el.childElementCount < el.style.getPropertyValue("--columns-expand"))
-            el.setAttribute('data-no-expand');
-    }
+        el['expanded'].style.setProperty('--max-height',
+            el['expanded'].scrollHeight + 'px');
+
+        // console.log(el['expanded'].style.getPropertyValue("--columns-expand"));
+        if (el['expanded'].childElementCount < el['expanded'].style.getPropertyValue("--columns-expand"))
+            el['expanded'].setAttribute('data-no-expand');
+    });
 };
 
-function gridExpandOn(element, btn) {
-    element.toggleAttribute('data-grid-expanded');
+function gridExpandOn(index) {
+    gridExpand[index]['expanded'].toggleAttribute('data-grid-expanded');
 };

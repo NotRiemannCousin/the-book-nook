@@ -28,16 +28,21 @@
     @endphp
 
     @if ($checked_book)
-        <h2>Books</h2>
-        <section class="p-2 p-md-5 w-fill">
-            @include('layouts.book.book-collection-expanded', [
-                'collection' => $books,
-            ])
-        </section>
+        <div id="books-container" class="grid-expand" data-grid-expanded>
+            <div>
+                <h2 class="d-inline">Books</h2>
+                <span class="grid-expand-btn float-end"></span>
+            </div>
+            <section class="p-2 p-md-5 w-fill">
+                @include('layouts.book.book-collection-expanded', [
+                    'collection' => $books,
+                ])
+            </section>
+        </div>
     @endif
 
     @foreach ($arrays as $name => $collection)
-        @unless (!$collection)
+        @unless ($collection)
             @continue
         @endunless
 
