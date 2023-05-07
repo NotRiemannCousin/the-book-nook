@@ -14,22 +14,24 @@
         if ($checked_book) {
             $books = Book::FilteredByTitle($search_input)->paginate(30);
         }
-        if ($checked_author) {
-            $genres = Genre::FilteredByName($search_input)->paginate(30);
-        }
-        if ($checked_genre) {
-            $authors = Author::FilteredByName($search_input)->paginate(30);
-        }
-        if ($checked_publisher) {
-            $publishers = Publisher::FilteredByName($search_input)->paginate(30);
-        }
+        $models = [
+            'genre' => Genre::class,
+            'author' => Author::class,
+            'publisher' => Publisher::class,
+        ];
         
-        $arrays = ['genre' => $genres, 'author' => $authors, 'publisher' => $publishers];
+        $results = [];
+        
+        foreach ($models as $key => $model) {
+            if (${"checked_$key"}) {
+                $results[$key] = $model::FilteredByName($search_input)->paginate(30);
+            }
+        }
     @endphp
 
     @if ($checked_book)
-        <div id="books-container" class="grid-expand" data-grid-expanded>
-            <div>
+        <div class="grid-expand" data-grid-expanded>
+            <div class="align-items-center d-flex justify-content-between">
                 <h2 class="d-inline">Books</h2>
                 <span class="grid-expand-btn float-end"></span>
             </div>
@@ -39,22 +41,56 @@
                 ])
             </section>
         </div>
+
+
+
+
+        <div class="d-flex justify-content-center">
+            {!! $books->links() !!}
+        </div>
     @endif
 
-    @foreach ($arrays as $name => $collection)
+
+
+
+    <hr>
+
+
+
+
+    @foreach ($results as $name => $collection)
         @unless ($collection)
             @continue
         @endunless
 
-        <h2>{{ str_plural(ucwords($name)) }}</h2>
-        <section class="p-2 p-md-5 pt-md-2 w-fill">
-            @forelse ($collection as $element)
-                <a class="text-decoration-none fw-normal"
-                    href="/details/{{ $name }}/{{ $element->id }}">{{ $element->name }}</a><br>
-            @empty
-                @include('layouts.util.nothing')
-            @endforelse
-        </section>
+        <div class="grid-expand" data-grid-expanded>
+            <div class="align-items-center d-flex justify-content-between">
+                <h2>{{ str_plural(ucwords($name)) }}</h2>
+                <span class="grid-expand-btn float-end"></span>
+            </div>
+            <section class="p-2 p-md-5 pt-md-2 w-fill">
+                @forelse ($collection as $element)
+                    @if ($loop->first)
+                        <ul class="sla">
+                    @endif
+                    <li class="list-group">
+                        <a class="text-decoration-none fw-normal"
+                            href="/details/{{ $name }}/{{ $element->id }}">{{ $element->name }}</a>
+                    </li>
+                    @if ($loop->last)
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            {!! $collection->links() !!}
+                        </div>
+                    @endif
+                @empty
+                    @include('layouts.util.nothing')
+                @endforelse
+            </section>
+        </div>
+        @if (!$loop->last)
+            <hr>
+        @endif
     @endforeach
-    </ul>
+
 @endsection
