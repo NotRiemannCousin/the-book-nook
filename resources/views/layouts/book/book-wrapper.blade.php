@@ -1,5 +1,5 @@
 <div class="m-1 p-4 border rounded-2">
-    <a class="text-decoration-none text-reset" href="/details/book/{{ $book->id }}">
+    <a class="text-decoration-none text-reset" href="{{ route('details-book', ['book' => $book->id]) }}">
         <div class="mb-3 w-100 zoom-container">
             <img class="w-100 zoom-hover-1" src="{{ file_exists($book->image) ? $book->image : '/img/default-book.png' }}"
                 {{-- style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" --}} alt="{{ $book->title }}">

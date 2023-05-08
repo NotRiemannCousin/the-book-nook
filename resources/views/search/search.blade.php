@@ -1,96 +1,48 @@
 @extends('layouts.main', ['main_width' => '-webkit-fill-available'])
-@php
-    
-    use App\Models\{Book, Genre, Author, Publisher};
-@endphp
 @section('title', "Search: $search_input")
+
+
 @section('content')
-    @php
-        $books = [];
-        $genres = [];
-        $authors = [];
-        $publishers = [];
-        
-        if ($checked_book) {
-            $books = Book::FilteredByTitle($search_input)->paginate(30);
-        }
-        $models = [
-            'genre' => Genre::class,
-            'author' => Author::class,
-            'publisher' => Publisher::class,
-        ];
-        
-        $results = [];
-        
-        foreach ($models as $key => $model) {
-            if (${"checked_$key"}) {
-                $results[$key] = $model::FilteredByName($search_input)->paginate(30);
-            }
-        }
-    @endphp
+    <div class="p-2 px-5">
+        <h2 class="d-inline me-3">{{ ucwords($search_input) }}</h2>
+        <h4 class="d-md-inline text-muted"> {{ $books->total() }} matches</h4>
+    </div>
 
-    @if ($checked_book)
-        <div class="grid-expand" data-grid-expanded>
-            <div class="align-items-center d-flex justify-content-between">
-                <h2 class="d-inline">Books</h2>
-                <span class="grid-expand-btn float-end"></span>
+
+
+    <form class="m-1 p-3 border rounded-3">
+        <h5 class="px-3">Filters</h5>
+        <input type="hidden" value="{{ $search_input }}">
+        <div class="form-group">
+            <div class="range-price">
+                <div class="form-group p-1">
+                    <label for="min">Min</label>
+                    <input type="number" class="form-control" name="min_price" value="{{ $min_price ?? '' }}">
+                </div>
+                <div class="form-group p-1">
+                    <label for="max">Max</label>
+                    <input type="number" class="form-control" name="max_price" value="{{ $max_price ?? '' }}">
+                </div>
+                <div class="form-group p-1">
+                <input type="checkbox">
+                </div>
             </div>
-            <section class="p-2 p-md-5 w-fill">
-                @include('layouts.book.book-collection-expanded', [
-                    'collection' => $books,
-                ])
-            </section>
         </div>
+    </form>
+
+
+
+    <section class="w-fill">
+        @include('layouts.book.book-collection-expanded', [
+            'collection' => $books,
+        ])
+    </section>
 
 
 
 
-        <div class="d-flex justify-content-center">
-            {!! $books->links() !!}
-        </div>
-    @endif
 
-
-
-
-    <hr>
-
-
-
-
-    @foreach ($results as $name => $collection)
-        @unless ($collection)
-            @continue
-        @endunless
-
-        <div class="grid-expand" data-grid-expanded>
-            <div class="align-items-center d-flex justify-content-between">
-                <h2>{{ str_plural(ucwords($name)) }}</h2>
-                <span class="grid-expand-btn float-end"></span>
-            </div>
-            <section class="p-2 p-md-5 pt-md-2 w-fill">
-                @forelse ($collection as $element)
-                    @if ($loop->first)
-                        <ul class="sla">
-                    @endif
-                    <li class="list-group">
-                        <a class="text-decoration-none fw-normal"
-                            href="/details/{{ $name }}/{{ $element->id }}">{{ $element->name }}</a>
-                    </li>
-                    @if ($loop->last)
-                        </ul>
-                        <div class="d-flex justify-content-center">
-                            {!! $collection->links() !!}
-                        </div>
-                    @endif
-                @empty
-                    @include('layouts.util.nothing')
-                @endforelse
-            </section>
-        </div>
-        @if (!$loop->last)
-            <hr>
-        @endif
-    @endforeach
-
+    <div class="d-flex justify-content-center">
+        {!! $books->links() !!}
+    </div>
 @endsection

@@ -2,13 +2,6 @@
 @php
     use App\Models\Book;
     use App\Models\Genre;
-
-    $collections = [
-        'Best Rating' => Book::Top10()->pick(10),
-        'Best Sellers' => Book::BestSellers()->pick(10),
-        'Most Recents' => Book::latest()->pick(10),
-    ];
-    $carousel = Book::inRandomOrder()->pick(5);
 @endphp
 @section('header')
     <div id="carousel-random" class="carousel slide mb-5 text-body" data-bs-ride="carousel">

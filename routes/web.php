@@ -39,10 +39,10 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 
 
 
-Route::get('/details/book/{book}', [DetailsController::class, 'book']);
-Route::get('/details/author/{author}', [DetailsController::class, 'author']);
-Route::get('/details/publisher/{publisher}', [DetailsController::class, 'publisher']);
-Route::get('/details/genre/{genre}', [DetailsController::class, 'genre']);
+Route::get('/details/book/{book}', [DetailsController::class, 'book'])->name('details-book');
+Route::get('/details/author/{author}', [DetailsController::class, 'author'])->name('details-author');
+Route::get('/details/publisher/{publisher}', [DetailsController::class, 'publisher'])->name('details-publisher');
+Route::get('/details/genre/{genre}', [DetailsController::class, 'genre'])->name('details-genre');
 
 
 
@@ -50,4 +50,6 @@ Route::get('/details/genre/{genre}', [DetailsController::class, 'genre']);
 Route::get('/bag', [DetailsController::class, 'sla'])->name('my-bag');
 
 
-// Route::fallback(route('index'));
+Route::fallback(function () {
+    return redirect()->route('index');
+});
