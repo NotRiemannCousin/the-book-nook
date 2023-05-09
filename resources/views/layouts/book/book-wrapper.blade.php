@@ -10,13 +10,13 @@
         @if ($book->onSale())
             <h6 class="text-truncate">
                 <span class="text-decoration-line-through opacity-75">
-                    U${{ $book->calcBasePrice() }}
+                    USD{{ $book->calcBasePrice() }}
                 </span>
-                U${{ $book->calcPrice() }}
+                USD{{ $book->calcPrice() }}
             </h6>
         @else
             <h6 class="text-truncate">
-                U${{ $book->calcPrice() }}
+                USD{{ $book->calcPrice() }}
             </h6>
         @endif
     </a>

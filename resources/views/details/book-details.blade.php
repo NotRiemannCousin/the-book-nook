@@ -1,7 +1,5 @@
 @extends('layouts.main')
-@php
-    use App\Models\Book;
-@endphp
+
 @section('title', "$book->title - Book")
 
 @section('content')
@@ -65,14 +63,14 @@
                     </div>
 
                     @if ($book->onSale())
-                        <h5 class="text-decoration-line-through">U${{ $book->calcBasePrice() }}</h5>
-                        <h3 class="mt-2 fw-bold">U${{ $book->calcPrice() }}</h3>
+                        <h5 class="text-decoration-line-through text-dead">USD{{ $book->calcBasePrice() }}</h5>
+                        <h3 class="mt-2 fw-bold">USD{{ $book->calcPrice() }}</h3>
 
                         <span class="py-1 px-2 m-1 bg-secondary fw-bold text-white rounded-2">
-                            {{ $book->calcDiscont() }}%
+                            {{ $book->calcDiscount() }}%
                         </span>
                     @else
-                        <h3 class="mt-2 fw-bold">U${{ $book->calcPrice() }}</h3>
+                        <h3 class="mt-2 fw-bold">USD{{ $book->calcPrice() }}</h3>
                     @endif
                 @else
                     <a class="d-block p-3 px-5 mb-4 rounded-2 btn-dead text-white text-decoration-none fw-semibold"
@@ -82,14 +80,20 @@
                 @endunless
             </div>
         </div>
+
+
         <h6>Posted at: <span class="fw-normal">{{ date_format($book->created_at, 'Y/m/d, h:i') }}h<span></h6>
         <h6>Updated at: <span class="fw-normal">{{ date_format($book->updated_at, 'Y/m/d, h:i') }}h<span></h6>
+
         @if ($book->description)
             <p id="description">{{ $book->description }}</p>
         @else
             <p id="description" class="text-dead">No description.</p>
         @endif
+
         <hr>
+
+
         <div class="d-flex flex-column justify-content-center align-items-center">
             <div class="d-flex justify-content-center align-items-center mb-4">
                 <h2 class="m-0">{{ round($book->getRating(), 2) }}</h2>
@@ -111,6 +115,8 @@
             </div>
         </div>
     </section>
+
+
 
     <div>
         @include('layouts.book.book-collection', [

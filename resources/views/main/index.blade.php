@@ -1,8 +1,5 @@
 @extends('layouts.main')
-@php
-    use App\Models\Book;
-    use App\Models\Genre;
-@endphp
+
 @section('header')
     <div id="carousel-random" class="carousel slide mb-5 text-body" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -55,7 +52,7 @@
     <div class="py-4 px-1 p-md-4 rounded-2 border sub-collection">
         <h1>Some Genres...</h1>
         <section class="p-2 p-md-5">
-            @foreach (Genre::inRandomOrder()->pick(3) as $genre)
+            @foreach ($selected_book_by_genres as $genre)
                 @include('layouts.book.book-collection', [
                     'name' => $genre->name,
                     'collection' => $genre->books,

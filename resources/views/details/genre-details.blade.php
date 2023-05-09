@@ -1,15 +1,6 @@
 @extends('layouts.main')
-@php
-    use App\Models\{Book, Genre, Author, Publisher};
-
-    $main_publishers = $genre->mainPublishers()->pick(3);
-    $main_publisher = optional($main_publishers[0]);
-
-    $main_authors = $genre->mainAuthors()->pick(3);
-    $main_author = optional($main_authors[0]);
-
-@endphp
 @section('content')
+
     <section class="border rounded-2 p-3">
         <div class="d-flex flex-column d-lg-grid border mb-4">
             <div class="book-details-content p-3 flex-grow-1">

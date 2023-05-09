@@ -1,14 +1,5 @@
 @extends('layouts.main')
-@php
-    use App\Models\{Book, Genre, Author, Publisher};
 
-    $main_publishers = $author->mainPublishers()->pick();
-    $main_publisher = optional($main_publishers[0]);
- 
-    $main_genres = $author->mainGenres()->pick();
-    $main_genre = optional($main_genres[0]);
-
-@endphp
 @section('title', "$author->name - Author")
 
 @section('content')

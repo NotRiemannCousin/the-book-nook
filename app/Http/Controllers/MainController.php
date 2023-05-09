@@ -18,10 +18,13 @@ class MainController extends Controller
         ];
         $carousel = Book::inRandomOrder()->pick(5);
 
+        $selected_book_by_genres = Genre::inRandomOrder()->pick(3);
+
 
         return view('main.index', [
             'collections' => $collections,
             'carousel' => $carousel,
+            'selected_book_by_genres' => $selected_book_by_genres,
         ]);
     }
     public function about()
